@@ -120,10 +120,8 @@ public with sharing class FlowControlLoopsCollections {
      * @return A string indicating whether the input is "Empty", "Null", or "Contains Text".
      */
     public static String checkString(String a) {
-        String returnString3;
-        if (a.length() > 0) {
-            returnString3 = 'Contains Text';
-        } else if (a == '') {
+        String returnString3 = 'Contains Text';
+        if (a == '') {
             returnString3 = 'Empty';
         } else if (a == null) {
             returnString3 = 'Null';
@@ -309,17 +307,19 @@ public with sharing class FlowControlLoopsCollections {
      * @return The position of the word in the list as a string or -1 if the word was not found.
      */
     public static Integer findWordInList(String wordToFind, List<String> words) {
-        Integer wordIndex;
+        Integer wordIndex; 
         if (words.contains(wordToFind)) {
-            for (String word : words) {
-                if (word != wordToFind) {
-                    wordIndex += 1;
-                }
-            }
+            System.debug('word is in wordlist');
         } else {
+            System.debug('word is not in wordlist');
             wordIndex = -1;
         }
-        
+        for (Integer i = 0; i < words.size(); i++) {
+            System.debug(words.get(i));
+            if (words.get(i) == wordToFind) {
+                wordIndex = i;
+            }
+        }
         return wordIndex;
     }
 
@@ -409,12 +409,13 @@ public with sharing class FlowControlLoopsCollections {
         List<String> highPaidEmployees = new List<String>();
 
         // Iterate over the Map using a for loop
-        for (Integer employee : employeeSalaries) {
-            if (employeeSalaries.getValue(employee) > 55000) {
-                highPaidEmployees.add(employee);
+        Integer currentSalary;
+        for (String key : employeeSalaries.keySet()) {
+            currentSalary = employeeSalaries.get(key);
+            if (currentSalary > 55000) {
+                highPaidEmployees.add(key);
             }
         }
-        
         return highPaidEmployees;
     }
 
